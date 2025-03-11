@@ -1,11 +1,11 @@
 const express = require("express");
 
 const  app = express();
+const {PORT} = require("./config/serverConfig")
 
 
 
 
-
-app.listen(3000, (req, res) => {
-    console.log("App is listening on port no:", 3000)
+app.listen(PORT, (req, res) => {
+    console.log(`App is listening on port no:-> ${PORT}`)
 })
