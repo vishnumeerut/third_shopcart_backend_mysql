@@ -1,4 +1,5 @@
 const express = require("express");
+var responseTime = require('response-time')
 
 const  app = express();
 const bodyParser = require("body-parser");
@@ -6,6 +7,13 @@ const {PORT} = require("./config/server_config")
 const apiRouter = require("./routes/api_router");
 
 
+
+app.use(responseTime())
+
+// app.use(responseTime((req, res, time) => {
+//     console.log(`Elapsed time == ${time}`)
+//     res.setHeader("X-Response-Time", time)
+// }))
 app.use(bodyParser.json()) // for validating the json data 
 app.use(bodyParser.text()) // for validating the text data
 app.use(bodyParser.urlencoded({extended:true})) // for validating the data incoming through body
