@@ -24,6 +24,6 @@ function auth(req, res, next) {
 
 }
 
-router.get("/", [checkDetails, logger, auth], pingController)
+router.get("/",  pingController)
 
 module.exports = router;
