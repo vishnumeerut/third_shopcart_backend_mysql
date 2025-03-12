@@ -2,14 +2,10 @@ const express = require("express");
 
 const  app = express();
 const {PORT} = require("./config/serverConfig")
-const {pingController} = require("./controllers/pingController")
+const pingRoute = require("./routes/pingRoute")
 
-// app.get("/api/v1/ping", (req, res) => {
-//     res.send({message:"Welcome to the new Backend!"})
-// })
 
-app.get("/api/v1/ping", pingController)
-
+app.use("/api/v1/ping", pingRoute);
 
 app.listen(PORT, (req, res) => {
     console.log(`App is listening on port no:-> ${PORT}`)
