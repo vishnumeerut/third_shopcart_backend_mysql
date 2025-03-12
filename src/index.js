@@ -1,8 +1,8 @@
 const express = require("express");
 
 const  app = express();
-const {PORT} = require("./config/serverConfig")
-const apiRouter = require("./routes/apiRoute");
+const {PORT} = require("./config/server_config")
+const apiRouter = require("./routes/api_router");
 
 
 app.use("/api", apiRouter);
