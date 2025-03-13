@@ -1,5 +1,7 @@
 
 function createProduct(req, res) {
+    const {title, description, category, price, image} = req.body;
+    console.log(title, description, category, price, image)
     try{
 
 
@@ -11,11 +13,11 @@ function createProduct(req, res) {
             message:"Product created successfully..",
             data: {
                 id: Math.random()*(20)+(1),
-                title: "",
-                description: "",
-                category: "",
-                price: "",
-                image:"",
+                title: title,
+                description: description,
+                category: category,
+                price: price,
+                image:image,
             }
         })
     }
