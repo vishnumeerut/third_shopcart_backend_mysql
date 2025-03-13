@@ -1,8 +1,8 @@
-function errorResponse(message, errorObj) {
+function errorResponse(errorMessage, errorObj) {
     return {
         success:false,
         data:{},
-        message:message,
+        message:errorMessage,
         error: errorObj,
     }
 }

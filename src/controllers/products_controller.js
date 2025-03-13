@@ -1,4 +1,4 @@
-
+const {StatusCodes, ReasonPhrases} = require("http-status-codes")
 function createProduct(req, res) {
     const {title, description, category, price, image} = req.body;
     console.log(title, description, category, price, image)
@@ -7,10 +7,10 @@ function createProduct(req, res) {
 
         // db processsing...
 
-        res.send({
+        res.status(StatusCodes.CREATED).send({
             success:true,
             error:{},
-            message:"Product created successfully..",
+            message: "Product " + ReasonPhrases.CREATED,
             data: {
                 id: Math.random()*(20)+(1),
                 title: title,

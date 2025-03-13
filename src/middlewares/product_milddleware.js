@@ -1,25 +1,25 @@
 const BadRequest = require("../errors/bad_request_error")
 const errorResponse = require("../utils/error_response")
-
+const {StatusCodes, ReasonPhrases} = require("http-status-codes")
 function createProductValidator(req, res, next) {
 
     if(!req.body.title) {
-        res.status(400).send(errorResponse("Desc is not present in incoming request", new BadRequest("Title")))
+        res.status(StatusCodes.BAD_REQUEST).send(errorResponse(ReasonPhrases.BAD_REQUEST, new BadRequest("Title")))
     }
     if(!req.body.description) {
-        res.status(400).send(errorResponse("Desc is not present in incoming request", new BadRequest("Description")))
+        res.status(400).send(errorResponse(ReasonPhrases.BAD_REQUEST, new BadRequest("Description")))
     }
     if(!req.body.category) {
-        res.status(400).send(errorResponse("Desc is not present in incoming request", new BadRequest("Category")))
+        res.status(400).send(errorResponse(ReasonPhrases.BAD_REQUEST, new BadRequest("Category")))
     }
     if(!req.body.price) {
-        res.status(400).send(errorResponse("Desc is not present in incoming request", new BadRequest("Price")))
+        res.status(400).send(errorResponse(ReasonPhrases.BAD_REQUEST, new BadRequest("Price")))
     }
     if(!req.body.image) {
-        res.status(400).send(errorResponse("Desc is not present in incoming request", new BadRequest("Image")))
+        res.status(400).send(errorResponse(ReasonPhrases.BAD_REQUEST, new BadRequest("Image")))
     }
 
-    // if everything is good 
+    // If Everything is Good then call next()
     next()
 }
 
