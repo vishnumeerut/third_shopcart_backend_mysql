@@ -29,12 +29,25 @@ function getproductController(req, res) {
         data: allProducts,
     })
 }
+
+function getProduct(req, res) {
+    const {id} = req.params;
+    const singleProduct = ProductService.getProduct(id)
+    res.status(StatusCodes.OK).send({
+        success:true,
+        error:{},
+        message: "Product fetch successfully",
+        data: singleProduct,
+    })
+}
 function productControllerv2(req, res) {
     res.send({message:"Ping request from V2..", products:[]})
+
 }
 
 module.exports = {
     createProduct,
     getproductController,
     productControllerv2,
+    getProduct,
 }
