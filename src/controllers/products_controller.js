@@ -32,9 +32,9 @@ async function getproductController(req, res) {
     })
 }
 
-function getProduct(req, res) {
+async function getProduct(req, res) {
     const {id} = req.params;
-    const singleProduct = productService.getProduct(id)
+    const singleProduct = await productService.getProduct(id)
     res.status(StatusCodes.OK).send({
         success:true,
         error:{},

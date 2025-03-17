@@ -1,7 +1,3 @@
-const FakeStorapi = require("../repositories/fake_store_respository")
-let products = [];
-
-const repository = FakeStorapi;
 
 class ProductService {
     constructor(repository) {
@@ -22,9 +18,9 @@ class ProductService {
         return data;
     }
     
-    getProduct(id) {
-        const singleItem =  this.repository.products[id-1]
-        return singleItem
+    async getProduct(id) {
+        const singleItem = await this.repository.getProduct(id)
+        return singleItem;
     }
 }
 
