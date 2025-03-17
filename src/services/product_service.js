@@ -3,13 +3,10 @@ class ProductService {
     constructor(repository) {
         this.repository = repository;
     }
-    createProduct(product) {
-        let newProduct = {
-            id: products.length,
-            ...product
-        }
-        products.push(newProduct);
-        return newProduct;
+    async createProduct(product) {
+        console.log("create product called from service laryer", product)
+       let newProduct = await this.repository.createProduct(product)
+       return newProduct;
     }
     
     async getProducts() {

@@ -3,11 +3,12 @@ const ProductService = require("../services/product_service");
 const FakeStoreRepository = require("../repositories/fake_store_respository");
 
 const productService = new ProductService(new FakeStoreRepository())
-function createProduct(req, res) {
+async function createProduct(req, res) {
     const {title, description, category, price, image} = req.body;
     try{
 
-        const newProduct = productService.createProduct(req.body)
+        console.log("controller called..")
+        const newProduct = await productService.createProduct(req.body)
         console.log("newProduct is", newProduct)
         // db processsing...
 
