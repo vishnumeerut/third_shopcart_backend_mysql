@@ -1,11 +1,12 @@
 const { default: axios } = require("axios")
 
-async function getProducts () {
-    const response = await axios.get("https://fakestoreapi.com/products");
-    // console.log("response from repository",response.data)
-    return response.data
+
+class FakeStoreRepository {
+    async getProducts () {
+        const response = await axios.get("https://fakestoreapi.com/products");
+        return response.data
+    }
 }
 
-module.exports = {
-    getProducts,
-}
+
+module.exports = FakeStoreRepository;
