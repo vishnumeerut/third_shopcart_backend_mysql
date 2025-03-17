@@ -2,7 +2,6 @@ const {StatusCodes, ReasonPhrases} = require("http-status-codes")
 const ProductService = require("../services/product_service")
 function createProduct(req, res) {
     const {title, description, category, price, image} = req.body;
-    console.log(title, description, category, price, image)
     try{
 
         const newProduct = ProductService.createProduct(req.body)
@@ -20,8 +19,8 @@ function createProduct(req, res) {
         console.log("Error caught during product creation..", error)
     }
 }
-function getproductController(req, res) {
-    const allProducts = ProductService.getProducts()
+async function getproductController(req, res) {
+    const allProducts = await ProductService.getProducts()
     res.status(StatusCodes.OK).send({
         success:true,
         error:{},
