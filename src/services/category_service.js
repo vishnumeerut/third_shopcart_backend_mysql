@@ -19,6 +19,10 @@ class CategoryService {
        let data = await this.repository.deleteCategory(id)
        return data;
     }
+    async updateCategory(id, updatedata) {
+       let data = await this.repository.updateCategory(id, updatedata.name, updatedata.description)
+       return data;
+    }
     
 
 }
