@@ -2,7 +2,9 @@
 const Category = require("../models/category")
 class CategoryRepository {
     async getCategories () {
+        console.log("repository called..")
         const response = await Category.findAll();
+        console.log("data from repository...", response)
         return response;
     }
     async getCategory (id) {

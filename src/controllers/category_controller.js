@@ -19,8 +19,44 @@ async function createCategory(req, res) {
         console.log("Error caught during product creation..", error)
     }
 }
+async function getCategories(req, res) {
+
+    try{
+        console.log("conroller called.")
+        const data = await categoryService.getCategories()
+        console.log(" data from conroller .", data)
+
+        res.status(StatusCodes.OK).send({
+            success:true,
+            error:{},
+            message: "All Categories are " + ReasonPhrases.OK,
+            data: data,
+        })
+    }
+    catch(error) {
+        console.log("Error caught during product creation..", error)
+    }
+}
+async function getCategory(req, res) {
+
+    try{
+        const data = await categoryService.getCategory(req.params.id)
+
+        res.status(StatusCodes.OK).send({
+            success:true,
+            error:{},
+            message: "All Categories are " + ReasonPhrases.OK,
+            data: data,
+        })
+    }
+    catch(error) {
+        console.log("Error caught during product creation..", error)
+    }
+}
 
 
 module.exports = {
-    createCategory
+    createCategory,
+    getCategories,
+    getCategory,
 }
