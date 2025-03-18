@@ -1,6 +1,7 @@
 const {StatusCodes, ReasonPhrases} = require("http-status-codes")
 const CategoryService = require("../services/category_service");
-const CategoryRepository = require("../repositories/category_repository")
+const CategoryRepository = require("../repositories/category_repository");
+const errorResponse = require("../utils/error_response");
 const categoryService = new CategoryService(new CategoryRepository())
 async function createCategory(req, res) {
 
@@ -16,17 +17,16 @@ async function createCategory(req, res) {
         })
     }
     catch(error) {
-        console.log("Error caught during product creation..", error)
+        console.log("Category Controller layer..", error)
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(errorResponse(ReasonPhrases.INTERNAL_SERVER_ERROR, error))
     }
 }
 async function getCategories(req, res) {
 
     try{
-        console.log("conroller called.")
         const data = await categoryService.getCategories()
-        console.log(" data from conroller .", data)
 
-        res.status(StatusCodes.OK).send({
+        res.sendStatus(StatusCodes.OK).send({
             success:true,
             error:{},
             message: "All Categories are " + ReasonPhrases.OK,
@@ -34,23 +34,26 @@ async function getCategories(req, res) {
         })
     }
     catch(error) {
-        console.log("Error caught during product creation..", error)
+        console.log("Category Controller layer..", error)
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(errorResponse(ReasonPhrases.INTERNAL_SERVER_ERROR, error))
     }
 }
 async function getCategory(req, res) {
 
     try{
         const data = await categoryService.getCategory(req.params.id)
+        console.log("Category controller.. single category", data)
 
         res.status(StatusCodes.OK).send({
             success:true,
             error:{},
-            message: "All Categories are " + ReasonPhrases.OK,
+            message: "Fetch Category " + ReasonPhrases.OK,
             data: data,
         })
     }
     catch(error) {
-        console.log("Error caught during product creation..", error)
+        console.log("Category Controller layer..", error)
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(errorResponse(ReasonPhrases.INTERNAL_SERVER_ERROR, error))
     }
 }
 async function deleteCategory(req, res) {
@@ -66,7 +69,8 @@ async function deleteCategory(req, res) {
         })
     }
     catch(error) {
-        console.log("Error caught during product creation..", error)
+        console.log("Category Controller layer..", error)
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(errorResponse(ReasonPhrases.INTERNAL_SERVER_ERROR, error))
     }
 }
 async function updateCategory(req, res) {
@@ -82,7 +86,8 @@ async function updateCategory(req, res) {
         })
     }
     catch(error) {
-        console.log("Error caught during product creation..", error)
+        console.log("Category Controller layer..", error)
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(errorResponse(ReasonPhrases.INTERNAL_SERVER_ERROR, error))
     }
 }
 

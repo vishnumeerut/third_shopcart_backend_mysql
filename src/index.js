@@ -23,10 +23,6 @@ app.listen(PORT, async (req, res) => {
     console.log(`App is listening on port no:-> ${PORT}`)
     await db.sync({alter:true})
     console.log("Db connected Successfully....")
-    // const result = await Category.create({ 
-    //     name:"Electronice items",
-    //     description:"This bat is an electronic products.."
-    // })
-    // console.log(result)
+
 
 })

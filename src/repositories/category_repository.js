@@ -2,16 +2,15 @@
 const Category = require("../models/category")
 class CategoryRepository {
     async getCategories () {
-        console.log("repository called..")
         const response = await Category.findAll({
             attributes: ["name"],  // Select only the 'name' column
             raw: true,             // Returns plain JSON objects instead of Sequelize instances
           });
-        console.log("data from repository...", response)
         return response;
     }
     async getCategory (id) {
         const response = Category.findByPk(id);
+        console.log("response from db single category:", response)
         return response;
     }
 
