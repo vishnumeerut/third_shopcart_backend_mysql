@@ -19,6 +19,15 @@ class CategoryRepository {
         });
         return response;
     }
+
+    async deleteCategory (id) {
+        const responose = await Category.destroy({
+            where:{
+                id:id,
+            }
+        })
+        return responose;
+    }
 }
 
 

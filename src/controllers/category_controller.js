@@ -53,10 +53,27 @@ async function getCategory(req, res) {
         console.log("Error caught during product creation..", error)
     }
 }
+async function deleteCategory(req, res) {
+
+    try{
+        const data = await categoryService.deleteCategory(req.params.id)
+
+        res.status(StatusCodes.OK).send({
+            success:true,
+            error:{},
+            message: "Category Deleted.." + ReasonPhrases.OK,
+            data: data,
+        })
+    }
+    catch(error) {
+        console.log("Error caught during product creation..", error)
+    }
+}
 
 
 module.exports = {
     createCategory,
     getCategories,
     getCategory,
+    deleteCategory,
 }
