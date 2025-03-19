@@ -1,8 +1,7 @@
 const {StatusCodes, ReasonPhrases} = require("http-status-codes")
 const CategoryService = require("../services/category_service");
-const CategoryRepository = require("../repositories/category_repository");
 const errorResponse = require("../utils/error_response");
-const ProductRepository = require("../repositories/product_repository");
+const { CategoryRepository, ProductRepository } = require("../repositories/index");
 const categoryService = new CategoryService(new CategoryRepository(), new ProductRepository())
 async function createCategory(req, res) {
 
