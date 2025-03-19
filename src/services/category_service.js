@@ -2,8 +2,9 @@ const InternalServerError = require("../errors/inernal_server_error");
 const NotFoundError = require("../errors/not_found_error");
 
 class CategoryService {
-    constructor(repository) {
+    constructor(repository, productRepository) {
         this.repository = repository;
+        this.productRepository = productRepository;
     }
     async createCategory(data) {
         try{
@@ -16,10 +17,24 @@ class CategoryService {
         }
 
     }
+
+    async getProductsForCategory (categoryId) {
+        try{
+            await this.getCategory(categoryId);
+            const data = await this.productRepository.getProductsForCategory(categoryId);
+            return data;
+        }
+        catch(error){
+            if(error.name === "NotFoundError"){
+                throw error;
+            }
+            console.log("Category Service layer....", error)
+            throw new InternalServerError()
+        }
+    }
     async getCategories() {
         try{
             let data = await this.repository.getCategories()
-            console.log("all categories are..", data)
             return data;
         }
         catch(error){

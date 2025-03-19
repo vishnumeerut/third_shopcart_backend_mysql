@@ -74,6 +74,23 @@ class ProductRepository {
         }
 
     }
+
+    async getProductsForCategory(id) {
+        try{
+            const data = await Product.findAll({
+                where: { 
+                    categoryId: id
+                },
+            });
+            return data;
+        }
+        catch(error){
+            console.log("Category Service layer....", error)
+            throw new InternalServerError()
+        }
+
+    }
+
 }
 
 

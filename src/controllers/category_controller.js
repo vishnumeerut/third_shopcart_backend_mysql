@@ -2,7 +2,8 @@ const {StatusCodes, ReasonPhrases} = require("http-status-codes")
 const CategoryService = require("../services/category_service");
 const CategoryRepository = require("../repositories/category_repository");
 const errorResponse = require("../utils/error_response");
-const categoryService = new CategoryService(new CategoryRepository())
+const ProductRepository = require("../repositories/product_repository");
+const categoryService = new CategoryService(new CategoryRepository(), new ProductRepository())
 async function createCategory(req, res) {
 
     try{
@@ -13,6 +14,23 @@ async function createCategory(req, res) {
             error:{},
             message: "Category " + ReasonPhrases.CREATED,
             data: newCategory,
+        })
+    }
+    catch(error) {
+        console.log("Category Controller layer..", error)
+        res.status(error.statusCode).send(errorResponse(error.reason, error))
+    }
+}
+async function getProductsForCategory(req, res) {
+
+    try{
+        const data = await categoryService.getProductsForCategory(req.params.id)
+
+        res.status(StatusCodes.OK).send({
+            success:true,
+            error:{},
+            message: "Fetch all products are ..." + ReasonPhrases.OK,
+            data: data,
         })
     }
     catch(error) {
@@ -98,4 +116,5 @@ module.exports = {
     getCategory,
     deleteCategory,
     updateCategory,
+    getProductsForCategory,
 }
