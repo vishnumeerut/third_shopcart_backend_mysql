@@ -3,10 +3,9 @@ var responseTime = require('response-time')
 
 const  app = express();
 const bodyParser = require("body-parser");
-const { PORT } = require("./config/server_config")
+const { PORT, DB_FORCE, DB_ALTER } = require("./config/server_config")
 const apiRouter = require("./routes/api_router");
 const db = require("./config/db_config");
-const {Category, Product} = require("./models/associations")
 
 
 
@@ -21,11 +20,16 @@ app.use("/api", apiRouter);
 
 app.listen(PORT, async (req, res) => {
     console.log(`App is listening on port no:-> ${PORT}`)
-    await db.sync()
-    console.log("Db connected Successfully....")
-    const data = await Category.findByPk(2);
-    const p = await data.countProducts()
-    console.log(p)
+    if(DB_FORCE === true){
+        await db.sync({force: true});
+    }
+    else if (DB_ALTER === true){
+        await db.sync({alter:true})
+    }
+    else{
+        await db.sync()
+    }
+
 
 
 })
