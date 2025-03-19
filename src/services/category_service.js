@@ -1,4 +1,5 @@
 const InternalServerError = require("../errors/inernal_server_error");
+const NotFoundError = require("../errors/not_found_error");
 
 class CategoryService {
     constructor(repository) {
@@ -29,9 +30,17 @@ class CategoryService {
     async getCategory(id) {
         try{
             let data = await this.repository.getCategory(id)
+            console.log("category service.. data is", data)
+            if(!data){
+                console.log("implement not found error here")
+                throw new NotFoundError("Category", "id", id)
+            }
             return data;
         }
         catch(error){
+            if(error.name === "NotFoundError"){
+                throw error;
+            }
             console.log("Category Service layer....", error)
             throw new InternalServerError()
         }

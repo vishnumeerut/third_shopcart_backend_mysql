@@ -18,7 +18,7 @@ async function createCategory(req, res) {
     }
     catch(error) {
         console.log("Category Controller layer..", error)
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(errorResponse(ReasonPhrases.INTERNAL_SERVER_ERROR, error))
+        res.status(error.statusCode).send(errorResponse(error.reason, error))
     }
 }
 async function getCategories(req, res) {
@@ -35,7 +35,7 @@ async function getCategories(req, res) {
     }
     catch(error) {
         console.log("Category Controller layer..", error)
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(errorResponse(ReasonPhrases.INTERNAL_SERVER_ERROR, error))
+        res.status(error.statusCode).send(errorResponse(error.reason, error))
     }
 }
 async function getCategory(req, res) {
@@ -53,7 +53,8 @@ async function getCategory(req, res) {
     }
     catch(error) {
         console.log("Category Controller layer..", error)
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(errorResponse(ReasonPhrases.INTERNAL_SERVER_ERROR, error))
+        console.log("Error name is:-", error.name)
+        res.status(error.statusCode).send(errorResponse(error.reason, error))
     }
 }
 async function deleteCategory(req, res) {
@@ -70,7 +71,7 @@ async function deleteCategory(req, res) {
     }
     catch(error) {
         console.log("Category Controller layer..", error)
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(errorResponse(ReasonPhrases.INTERNAL_SERVER_ERROR, error))
+        res.status(error.statusCode).send(errorResponse(error.reason, error))
     }
 }
 async function updateCategory(req, res) {
@@ -87,7 +88,7 @@ async function updateCategory(req, res) {
     }
     catch(error) {
         console.log("Category Controller layer..", error)
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(errorResponse(ReasonPhrases.INTERNAL_SERVER_ERROR, error))
+        res.status(error.statusCode).send(errorResponse(error.reason, error))
     }
 }
 
