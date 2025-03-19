@@ -4,10 +4,9 @@ const ProductRespository = require("../repositories/product_repository")
 
 const productService = new ProductService(new ProductRespository())
 async function createProduct(req, res) {
-    const {title, description, price, image, categoryId} = req.body;
+    // const {title, description, price, image, categoryId} = req.body;
     try{
 
-        console.log("controller called..", title, description, price, image, categoryId)
         const newProduct = await productService.createProduct(req.body)
         console.log("newProduct is", newProduct)
 
@@ -22,7 +21,7 @@ async function createProduct(req, res) {
         console.log("Error caught during product creation..", error)
     }
 }
-async function getproductController(req, res) {
+async function getProducts(req, res) {
     const allProducts = await productService.getProducts()
     res.status(StatusCodes.OK).send({
         success:true,
@@ -49,7 +48,7 @@ function productControllerv2(req, res) {
 
 module.exports = {
     createProduct,
-    getproductController,
+    getProducts,
     productControllerv2,
     getProduct,
 }
