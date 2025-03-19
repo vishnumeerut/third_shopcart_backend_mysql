@@ -19,6 +19,7 @@ class CategoryService {
     async getCategories() {
         try{
             let data = await this.repository.getCategories()
+            console.log("all categories are..", data)
             return data;
         }
         catch(error){
@@ -49,9 +50,15 @@ class CategoryService {
     async deleteCategory(id) {
         try{
             let data = await this.repository.deleteCategory(id)
+            if(!data) {
+                throw new NotFoundError("Category", "id", id)
+            }
             return data;
         }
         catch(error){
+            if(error.name === "NotFoundError"){
+                throw error;
+            }
             console.log("Category Service layer....", error)
             throw new InternalServerError()
         }
@@ -60,6 +67,7 @@ class CategoryService {
     async updateCategory(id, updatedata) {
         try{
             let data = await this.repository.updateCategory(id, updatedata.name, updatedata.description)
+            console.log("data is updating category..", data)
             return data;
         }
         catch(error){
@@ -68,6 +76,8 @@ class CategoryService {
         }
 
     }
+    
+
     
 
 }
