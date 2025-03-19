@@ -1,7 +1,6 @@
 const Sequelize = require("sequelize");
 const db = require("../config/db_config");
-const Category = db.define(
-  "category",
+const Category = db.define("category",
   {
     name: {
       type: Sequelize.STRING(255),
@@ -13,14 +12,7 @@ const Category = db.define(
       allowNull: false,
     },
   },
-  {
-    indexes: [
-      {
-        unique: true,
-        fields: ["name"], // Prevent Sequelize from adding multiple indexes
-      },
-    ],
-  }
+
 );
 
 module.exports = Category;
