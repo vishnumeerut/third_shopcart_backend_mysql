@@ -1,6 +1,7 @@
 const {StatusCodes, ReasonPhrases} = require("http-status-codes")
 const ProductService = require("../services/product_service");
-const ProductRespository = require("../repositories/product_repository")
+const ProductRespository = require("../repositories/product_repository");
+const errorResponse = require("../utils/error_response");
 
 const productService = new ProductService(new ProductRespository())
 async function createProduct(req, res) {
@@ -18,39 +19,81 @@ async function createProduct(req, res) {
         })
     }
     catch(error) {
-        console.log("Error caught during product creation..", error)
+        console.log("Product Controller layer..", error)
+        res.status(error.statusCode).send(errorResponse(error.reason, error))
     }
 }
 async function getProducts(req, res) {
-    const allProducts = await productService.getProducts()
-    res.status(StatusCodes.OK).send({
-        success:true,
-        error:{},
-        message: "All Products fetch successfully",
-        data: allProducts,
-    })
+
+    try{
+        const allProducts = await productService.getProducts()
+        res.status(StatusCodes.OK).send({
+            success:true,
+            error:{},
+            message: "Products fetch successfully",
+            data: allProducts,
+        })
+    }
+    catch(error) {
+        console.log("Product Controller layer..", error)
+        res.status(error.statusCode).send(errorResponse(error.reason, error))
+    }
+    
 }
 
 async function getProduct(req, res) {
-    const {id} = req.params;
-    const singleProduct = await productService.getProduct(id)
-    res.status(StatusCodes.OK).send({
-        success:true,
-        error:{},
-        message: "Product fetch successfully",
-        data: singleProduct,
-    })
+
+    try{
+        const {id} = req.params;
+        const singleProduct = await productService.getProduct(id)
+        res.status(StatusCodes.OK).send({
+            success:true,
+            error:{},
+            message: "Product fetch successfully",
+            data: singleProduct,
+        })
+    }
+    catch(error) {
+        console.log("Product Controller layer..", error)
+        res.status(error.statusCode).send(errorResponse(error.reason, error))
+    }
+
 }
 
 async function deleteProduct(req, res) {
-    const {id} = req.params;
-    const singleProduct = await productService.deleteProduct(id)
-    res.status(StatusCodes.OK).send({
-        success:true,
-        error:{},
-        message: "Product Delete successfully",
-        data: singleProduct,
-    })
+
+    try{
+        const {id} = req.params;
+        const singleProduct = await productService.deleteProduct(id)
+        res.status(StatusCodes.OK).send({
+            success:true,
+            error:{},
+            message: "Product Delete successfully",
+            data: singleProduct,
+        })
+    }
+    catch(error) {
+        console.log("Product Controller layer..", error)
+        res.status(error.statusCode).send(errorResponse(error.reason, error))
+    }
+}
+
+async function updateProduct(req, res) {
+
+    try{
+        const {id} = req.params;
+        const singleProduct = await productService.updateProduct(id)
+        res.status(StatusCodes.OK).send({
+            success:true,
+            error:{},
+            message: "Product Update successfully",
+            data: singleProduct,
+        })
+    }
+    catch(error) {
+        console.log("Product Controller layer..", error)
+        res.status(error.statusCode).send(errorResponse(error.reason, error))
+    }
 }
 function productControllerv2(req, res) {
     res.send({message:"Ping request from V2..", products:[]})
@@ -60,7 +103,8 @@ function productControllerv2(req, res) {
 module.exports = {
     createProduct,
     getProducts,
-    productControllerv2,
     getProduct,
     deleteProduct,
+    updateProduct,
+    productControllerv2,
 }

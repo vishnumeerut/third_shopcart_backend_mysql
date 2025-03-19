@@ -1,29 +1,6 @@
 
 const Category = require("../models/category")
 class CategoryRepository {
-    async getCategories () {
-        try{
-            const response = await Category.findAll();
-            return response;
-        }
-        catch(error){
-            console.log("Category Respository...", error)
-            throw error;
-        }
-
-    }
-    async getCategory (id) {
-        try{
-            const response = Category.findByPk(id);
-            console.log("response from db single category:", response)
-            return response;
-        }
-        catch(error){
-            console.log("Category Respository...", error)
-            throw error;
-        }
-
-    }
 
     async createCategory (name, description){
 
@@ -39,6 +16,30 @@ class CategoryRepository {
         }
 
     }
+    async getCategories () {
+        try{
+            const response = await Category.findAll();
+            return response;
+        }
+        catch(error){
+            console.log("Category Respository...", error)
+            throw error;
+        }
+
+    }
+    async getCategory (id) {
+        try{
+            const response = Category.findByPk(id);
+            return response;
+        }
+        catch(error){
+            console.log("Category Respository...", error)
+            throw error;
+        }
+
+    }
+
+
 
     async deleteCategory (id) {
         try{
