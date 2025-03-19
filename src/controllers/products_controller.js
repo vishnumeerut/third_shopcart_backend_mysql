@@ -1,16 +1,15 @@
 const {StatusCodes, ReasonPhrases} = require("http-status-codes")
 const ProductService = require("../services/product_service");
-const FakeStoreRepository = require("../repositories/fake_store_respository");
+const ProductRespository = require("../repositories/product_repository")
 
-const productService = new ProductService(new FakeStoreRepository())
+const productService = new ProductService(new ProductRespository())
 async function createProduct(req, res) {
-    const {title, description, category, price, image} = req.body;
+    const {title, description, price, image, categoryId} = req.body;
     try{
 
-        console.log("controller called..")
+        console.log("controller called..", title, description, price, image, categoryId)
         const newProduct = await productService.createProduct(req.body)
         console.log("newProduct is", newProduct)
-        // db processsing...
 
         res.status(StatusCodes.CREATED).send({
             success:true,

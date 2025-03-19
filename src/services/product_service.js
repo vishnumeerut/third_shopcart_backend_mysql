@@ -3,10 +3,10 @@ class ProductService {
     constructor(repository) {
         this.repository = repository;
     }
-    async createProduct(product) {
-        console.log("create product called from service laryer", product)
-       let newProduct = await this.repository.createProduct(product)
-       return newProduct;
+    async createProduct(productDetails) {
+        const {title, description, price, image, categoryId} = productDetails;
+        let newProduct = await this.repository.createProduct(title, description, price, image, categoryId)
+        return newProduct;
     }
     
     async getProducts() {
