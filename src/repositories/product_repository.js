@@ -58,11 +58,10 @@ class ProductRepository {
 
     }
 
-    async updateProduct(id, name, description) {
+    async updateProduct(id, title, price, description, image, categoryId) {
         try{
             const response = await Product.update({
-                name:name,
-                description:description,
+                title, price, description, image, categoryId
             }, {
                 where:{
                     id:id

@@ -69,7 +69,7 @@ class ProductService {
     async updateProduct(id, updatedata) {
         const {title, price, description, image, categoryId} = updatedata;
         try{
-            let data = await this.repository.updateCategory(id, title, price, description, image, categoryId)
+            let data = await this.repository.updateProduct(id, title, price, description, image, categoryId)
             return data;
         }
         catch(error){

@@ -82,7 +82,7 @@ async function updateProduct(req, res) {
 
     try{
         const {id} = req.params;
-        const singleProduct = await productService.updateProduct(id)
+        const singleProduct = await productService.updateProduct(id, req.body)
         res.status(StatusCodes.OK).send({
             success:true,
             error:{},
