@@ -19,6 +19,11 @@ class ProductService {
         const singleItem = await this.repository.getProduct(id)
         return singleItem;
     }
+
+    async deleteProduct(id) {
+        const singleItem = await this.repository.deleteProduct(id)
+        return singleItem;
+    }
 }
 
 

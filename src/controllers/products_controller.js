@@ -41,6 +41,17 @@ async function getProduct(req, res) {
         data: singleProduct,
     })
 }
+
+async function deleteProduct(req, res) {
+    const {id} = req.params;
+    const singleProduct = await productService.deleteProduct(id)
+    res.status(StatusCodes.OK).send({
+        success:true,
+        error:{},
+        message: "Product Delete successfully",
+        data: singleProduct,
+    })
+}
 function productControllerv2(req, res) {
     res.send({message:"Ping request from V2..", products:[]})
 
@@ -51,4 +62,5 @@ module.exports = {
     getProducts,
     productControllerv2,
     getProduct,
+    deleteProduct,
 }
