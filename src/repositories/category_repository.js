@@ -3,10 +3,7 @@ const Category = require("../models/category")
 class CategoryRepository {
     async getCategories () {
         try{
-            const response = await Category.findAll({
-                attributes: ["name"],  // Select only the 'name' column
-                raw: true,             // Returns plain JSON objects instead of Sequelize instances
-              });
+            const response = await Category.findAll();
             return response;
         }
         catch(error){

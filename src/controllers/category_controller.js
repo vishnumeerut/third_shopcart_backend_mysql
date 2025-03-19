@@ -6,7 +6,6 @@ const categoryService = new CategoryService(new CategoryRepository())
 async function createCategory(req, res) {
 
     try{
-
         const newCategory = await categoryService.createCategory(req.body)
 
         res.status(StatusCodes.CREATED).send({
@@ -26,7 +25,7 @@ async function getCategories(req, res) {
     try{
         const data = await categoryService.getCategories()
 
-        res.sendStatus(StatusCodes.OK).send({
+        res.status(StatusCodes.OK).send({
             success:true,
             error:{},
             message: "All Categories are " + ReasonPhrases.OK,
