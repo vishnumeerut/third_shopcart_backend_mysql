@@ -17,10 +17,15 @@ class ProductRepository {
 
     }
     async getProducts (limit, offset) {
+        let filter = {};
+        if(limit) {
+            filter.limit = limit;
+        }
+        if(offset){
+            filter.offset = offset;
+        }
         try{
-            const response = await Product.findAll({
-                limit, offset,
-            });
+            const response = await Product.findAll(filter);
             return response;
         }
         catch(error){

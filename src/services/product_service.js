@@ -21,7 +21,7 @@ class ProductService {
     async getProducts(query) {
 
         try{
-            if(isNaN(+query.limit) || isNaN(+query.offset)){
+            if((query.limit && isNaN(+query.limit)) || (query.offset && isNaN(+query.offset))){
                 throw new BadRequest("limit or offset", true)
             }
             const data = await this.repository.getProducts(+query.limit, +query.offset);
