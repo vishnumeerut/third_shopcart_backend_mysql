@@ -1,3 +1,4 @@
+const BadRequest = require("../errors/bad_request_error");
 const InternalServerError = require("../errors/inernal_server_error");
 const NotFoundError = require("../errors/not_found_error");
 class ProductService {
@@ -18,11 +19,18 @@ class ProductService {
     }
     
     async getProducts(query) {
+
         try{
+            if(isNaN(+query.limit) || isNaN(+query.offset)){
+                throw new BadRequest("limit or offset", true)
+            }
             const data = await this.repository.getProducts(+query.limit, +query.offset);
             return data;
         }
         catch(error){
+            if(error.name === "BadRequest"){
+                throw error;
+            }
             console.log("Product Service layer....", error)
             throw new InternalServerError()
         }
