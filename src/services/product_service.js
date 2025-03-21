@@ -92,6 +92,18 @@ class ProductService {
         }
 
     }
+    async searchQueryProduct(searchData) {
+        const {searchQuery} = searchData;
+        try{
+            let data = await this.repository.searchQueryProduct(searchQuery)
+            return data;
+        }
+        catch(error){
+            console.log("Category Service layer....", error)
+            throw new InternalServerError()
+        }
+
+    }
 
 }
 

@@ -95,6 +95,23 @@ async function updateProduct(req, res) {
         res.status(error.statusCode).send(errorResponse(error.reason, error))
     }
 }
+
+async function searchQueryProduct(req, res) {
+
+    try{
+        const allProducts = await productService.searchQueryProduct(req.query)
+        res.status(StatusCodes.OK).send({
+            success:true,
+            error:{},
+            message: "Product Fetch successfully",
+            data: allProducts,
+        })
+    }
+    catch(error) {
+        console.log("Product Controller layer..", error)
+        res.status(error.statusCode).send(errorResponse(error.reason, error))
+    }
+}
 function productControllerv2(req, res) {
     res.send({message:"Ping request from V2..", products:[]})
 
@@ -107,4 +124,5 @@ module.exports = {
     deleteProduct,
     updateProduct,
     productControllerv2,
+    searchQueryProduct,
 }

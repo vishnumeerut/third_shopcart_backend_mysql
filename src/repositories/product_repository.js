@@ -109,6 +109,24 @@ class ProductRepository {
 
     }
 
+    async searchQueryProduct (searchQuery) {
+        try{
+            const response = Product.findAll({
+                where: {
+                    title: {
+                        [Op.like]: `%${searchQuery}%`
+                    }
+                }
+            })
+            return response;
+        }
+        catch(error){
+            console.log("Product Respository...", error)
+            throw error;
+        }
+
+    }
+
 }
 
 
