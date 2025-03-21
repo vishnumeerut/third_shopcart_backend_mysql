@@ -1,5 +1,6 @@
 
 const Product = require("../models/product")
+const {Op} = require("sequelize");
 class ProductRepository {
 
     async createProduct (title, description, price, image, categoryId){
@@ -16,17 +17,27 @@ class ProductRepository {
         }
 
     }
-    async getProducts (limit, offset) {
-        let filter = {};
-        if(limit) {
-            filter.limit = limit;
-        }
-        if(offset){
-            filter.offset = offset;
-        }
+    async getProducts (limit, offset, min_price, max_price) {
         try{
-            const response = await Product.findAll(filter);
-            return response;
+            let filter = {};
+            if(limit) {
+                filter.limit = limit;
+            }
+            if(offset){
+                filter.offset = offset;
+            }
+            const minPriceValue = (min_price) ? min_price : Number.MIN_SAFE_INTEGER;
+            const maxPriceValue = (max_price) ? max_price : Number.MAX_SAFE_INTEGER;
+            const priceQueryResult = await Product.findAll({
+                where: {
+                    price: {
+                        [Op.between] : [minPriceValue, maxPriceValue]
+                    }
+                },
+                ...filter,
+            })
+            return priceQueryResult;
+
         }
         catch(error){
             console.log("Product Respository...", error)

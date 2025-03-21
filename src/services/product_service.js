@@ -24,7 +24,13 @@ class ProductService {
             if((query.limit && isNaN(+query.limit)) || (query.offset && isNaN(+query.offset))){
                 throw new BadRequest("limit or offset", true)
             }
-            const data = await this.repository.getProducts(+query.limit, +query.offset);
+            if(query.min_price && isNaN(+query.min_price)){
+                throw new BadRequest("Min Price", true)
+            }
+            if(query.max_price && isNaN(+query.max_price)){
+                throw new BadRequest("Max Price", true)
+            }
+            const data = await this.repository.getProducts(+query.limit, +query.offset, +query.min_price, +query.max_price);
             return data;
         }
         catch(error){
