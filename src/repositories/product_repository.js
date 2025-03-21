@@ -16,9 +16,11 @@ class ProductRepository {
         }
 
     }
-    async getProducts () {
+    async getProducts (limit, offset) {
         try{
-            const response = await Product.findAll();
+            const response = await Product.findAll({
+                limit, offset,
+            });
             return response;
         }
         catch(error){

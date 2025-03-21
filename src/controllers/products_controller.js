@@ -26,7 +26,7 @@ async function createProduct(req, res) {
 async function getProducts(req, res) {
 
     try{
-        const allProducts = await productService.getProducts()
+        const allProducts = await productService.getProducts(req.query)
         res.status(StatusCodes.OK).send({
             success:true,
             error:{},
