@@ -1,6 +1,8 @@
 
 const Sequelize = require("sequelize")
 const db = require("../config/db_config")
+const bcrypt = require("bcrypt")
+const { SALT_ROUNDS } = require("../config/server_config")
 
 
 const User = db.define("user", {
@@ -28,6 +30,14 @@ const User = db.define("user", {
         },
         
 
+    }
+}, {
+    hooks: {
+        beforeCreate: function (user) {
+            // const salt = bcrypt.genSaltSync(saltRounds);
+            const hash = bcrypt.hashSync(user.password, +SALT_ROUNDS); // convert SALT_ROUNDS INTO NUMBER
+            user.password = hash;
+        }
     }
 })
 
