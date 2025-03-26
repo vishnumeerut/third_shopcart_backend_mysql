@@ -17,6 +17,20 @@ class UserRepository {
 
     }
 
+
+    async getUserByEmail(email){
+        try{
+            const response = await User.findOne({
+                where: {email: email}
+            })
+            return response;
+        }
+        catch(error){
+            console.log("Error inside User Repository during getUserByEmail...", error)
+            throw error;
+        }
+    }
+
 }
 
 

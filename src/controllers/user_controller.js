@@ -21,10 +21,28 @@ async function createUser(req, res) {
         res.status(error.statusCode).send(errorResponse(error.reason, error))
     }
 }
+async function getUserByEmail(req, res) {
+
+    try{
+        const data = await userService.getUserByEmail(req.body)
+
+        res.status(StatusCodes.OK).send({
+            success:true,
+            error:{},
+            message: "User " + ReasonPhrases.OK,
+            data: data,
+        })
+    }
+    catch(error) {
+        console.log("Error inside User Controller during getUserByEmail...", error)
+        res.status(error.statusCode).send(errorResponse(error.reason, error))
+    }
+}
 
 
 
 
 module.exports = {
     createUser,
+    getUserByEmail,
 }

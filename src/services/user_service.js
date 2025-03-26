@@ -1,7 +1,10 @@
 
 const BadRequest = require("../errors/bad_request_error");
 const ConflictError = require("../errors/conflict_error");
-const InternalServerError = require("../errors/inernal_server_error")
+const InternalServerError = require("../errors/inernal_server_error");
+const NotFoundError = require("../errors/not_found_error");
+const bcrypt = require("bcrypt");
+const UnauthorizedError = require("../errors/unauthorized_error");
 class UserService {
     constructor(repository){
         this.repository = repository;
@@ -27,6 +30,29 @@ class UserService {
             }
             throw new InternalServerError()
             
+        }
+    }
+
+    async getUserByEmail (userDetails) {
+        try{
+            const {email, password} = userDetails;
+            const user = await this.repository.getUserByEmail(email);
+            if(!user){
+                throw new NotFoundError("User", "email", email)
+            }
+            const doesPasswordMatch = bcrypt.compareSync(password, user.password);
+            if(!doesPasswordMatch){
+                throw new UnauthorizedError()
+            }
+            return doesPasswordMatch;
+        }
+        catch(error){
+            console.log("Error inside User Service during getUserByEmail...", error)
+            if(error.name === "NotFoundError" || error.name === "UnauthorizedError"){
+                throw error;
+            }
+            throw new InternalServerError()
+
         }
     }
 
