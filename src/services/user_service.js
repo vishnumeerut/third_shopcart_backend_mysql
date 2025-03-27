@@ -5,6 +5,9 @@ const InternalServerError = require("../errors/inernal_server_error");
 const NotFoundError = require("../errors/not_found_error");
 const bcrypt = require("bcrypt");
 const UnauthorizedError = require("../errors/unauthorized_error");
+const jwt = require("jsonwebtoken");
+const { SECRECT_KEY } = require("../config/server_config");
+const { generateJwtToken } = require("../utils/auth");
 class UserService {
     constructor(repository){
         this.repository = repository;
@@ -44,7 +47,9 @@ class UserService {
             if(!doesPasswordMatch){
                 throw new UnauthorizedError()
             }
-            return doesPasswordMatch;
+            // const token = jwt.sign({id:user.id, name:user.username, password:user.password}, SECRECT_KEY)
+            // console.log("token is:-", token)
+            return generateJwtToken({id:user.id, name:user.username, password:user.password});
         }
         catch(error){
             console.log("Error inside User Service during getUserByEmail...", error)
