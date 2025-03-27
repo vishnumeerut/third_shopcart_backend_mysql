@@ -2,6 +2,7 @@ const { ReasonPhrases, StatusCodes } = require("http-status-codes");
 const UserRepository = require("../repositories/user_repository")
 const UserService = require("../services/user_service");
 const errorResponse = require("../utils/error_response");
+const { NODE_ENVIRONMENT } = require("../config/server_config");
 
 const userService = new UserService(new UserRepository());
 async function createUser(req, res) {
@@ -25,12 +26,13 @@ async function getUserByEmail(req, res) {
 
     try{
         const data = await userService.getUserByEmail(req.body)
+        res.cookie("token", data,   { httpOnly:true, maxAge: 7 * 24 * 60 * 60 * 1000})
 
         res.status(StatusCodes.OK).send({
             success:true,
             error:{},
             message: "User " + ReasonPhrases.OK,
-            data: data,
+            data: (NODE_ENVIRONMENT === "production") ? true : data,
         })
     }
     catch(error) {

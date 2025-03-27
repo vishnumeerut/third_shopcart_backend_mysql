@@ -13,5 +13,6 @@ module.exports = {
     DB_FORCE:process.env.DB_FORCE,
     SALT_ROUNDS:process.env.SALT_ROUNDS,
     SECRECT_KEY:process.env.SECRECT_KEY,
+    NODE_ENVIRONMENT:process.env.NODE_ENVIRONMENT,
 
 }
