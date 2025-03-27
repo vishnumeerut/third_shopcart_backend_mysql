@@ -3,6 +3,7 @@ var responseTime = require('response-time')
 
 const  app = express();
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const { PORT, DB_FORCE, DB_ALTER } = require("./config/server_config")
 const apiRouter = require("./routes/api_router");
 const db = require("./config/db_config");
@@ -12,6 +13,7 @@ const db = require("./config/db_config");
 app.use(responseTime())
 
 
+app.use(cookieParser());
 app.use(bodyParser.json()) // for validating the json data 
 app.use(bodyParser.text()) // for validating the text data
 app.use(bodyParser.urlencoded({extended:true})) // for validating the data incoming through body

@@ -49,7 +49,7 @@ class UserService {
             }
             // const token = jwt.sign({id:user.id, name:user.username, password:user.password}, SECRECT_KEY)
             // console.log("token is:-", token)
-            return generateJwtToken({id:user.id, name:user.username, password:user.password});
+            return generateJwtToken({id:user.id, name:user.username, email:user.email});
         }
         catch(error){
             console.log("Error inside User Service during getUserByEmail...", error)
