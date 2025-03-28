@@ -9,14 +9,16 @@ const jwt = require("jsonwebtoken");
 const { SECRECT_KEY } = require("../config/server_config");
 const { generateJwtToken } = require("../utils/auth");
 class UserService {
-    constructor(repository){
+    constructor(repository, cartRepository,){
         this.repository = repository;
+        this.cartRepository = cartRepository;
     }
 
     async createUser(userDetails){
         try{
             const {username, email, password} = userDetails;
             const response = await this.repository.createUser(username, email, password);
+            await this.cartRepository.createCart(response.id);
             return response;
         }
         catch(error){

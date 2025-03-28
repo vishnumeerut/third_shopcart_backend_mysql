@@ -3,8 +3,9 @@ const UserRepository = require("../repositories/user_repository")
 const UserService = require("../services/user_service");
 const errorResponse = require("../utils/error_response");
 const { NODE_ENVIRONMENT } = require("../config/server_config");
+const CartRepository = require("../repositories/cart_repository");
 
-const userService = new UserService(new UserRepository());
+const userService = new UserService(new UserRepository(), new CartRepository());
 async function createUser(req, res) {
 
     try{

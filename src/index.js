@@ -29,6 +29,7 @@ app.listen(PORT, async (req, res) => {
         await db.sync({alter:true})
     }
     else{
+        console.log("else db sync called..")
         await db.sync()
     }
 
