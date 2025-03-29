@@ -11,7 +11,7 @@ async function updateCart(req, res) {
 
     try{
         const shouldAddProduct = (req.body.shouldAddProduct === true || req.body.shouldAddProduct === "true") ? true : false;
-        const newCategory = await cartService.updateCart(req.params.id,  req.body.productId, shouldAddProduct)
+        const newCategory = await cartService.updateCart(req.user.id, req.params.id,  req.body.productId, shouldAddProduct)
 
         res.status(StatusCodes.OK).send({
             success:true,
