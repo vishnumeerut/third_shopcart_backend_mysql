@@ -6,7 +6,7 @@ const { verifyToken } = require("../utils/auth")
 
 function isLogedIn(req, res, next) {
 
-        console.log("cookie is:->", req.cookies.token)
+        // console.log("cookie is:->", req.cookies.token)
         if(!req.cookies || !req.cookies.token){
             return res.status(StatusCodes.UNAUTHORIZED).send(errorResponse(ReasonPhrases.UNAUTHORIZED, new UnauthorizedError()))
         }
@@ -21,7 +21,7 @@ function isLogedIn(req, res, next) {
         }
 
         // modify my request object;
-        console.log("decodetoken is:", decodeToken)
+        // console.log("decodetoken is:", decodeToken)
 
 
         req.user = {email:decodeToken.email, id: decodeToken.id}

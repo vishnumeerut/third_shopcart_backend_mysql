@@ -62,6 +62,8 @@ class CategoryService {
         }
 
     }
+
+
     async deleteCategory(id) {
         try{
             let data = await this.repository.deleteCategory(id)

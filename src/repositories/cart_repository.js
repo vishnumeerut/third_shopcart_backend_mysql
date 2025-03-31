@@ -42,6 +42,21 @@ class CartRepository {
 
     }
 
+    async getCartProducts(cartId) {
+        try{
+            const response = await CartProduct.findAll({
+                where: {
+                    id:cartId
+                }
+            })
+            return response;
+        }
+        catch(error){
+            console.log("Cart Respository...", error)
+            throw error;
+        }
+    }
+
 
 
     async deleteCart (id) {

@@ -27,7 +27,28 @@ async function updateCart(req, res) {
 }
 
 
+async function getCartProducts(req, res) {
+
+    try{
+        console.log("contoller called with cart id:-", req.params.id, "user id:-", req.user.id)
+        const data = await cartService.getCartProducts(req.params.id, req.user.id);
+
+        res.status(StatusCodes.OK).send({
+            success:true,
+            error:{},
+            message: "Get Cart Product Successfully... " ,
+            data: data,
+        })
+    }
+    catch(error) {
+        console.log("Cart Controller layer..", error)
+        res.status(error.statusCode).send(errorResponse(error.reason, error))
+    }
+}
+
+
 
 module.exports = {
     updateCart,
+    getCartProducts,
 }
