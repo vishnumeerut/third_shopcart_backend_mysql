@@ -59,11 +59,11 @@ class CartRepository {
 
 
 
-    async deleteCart (id) {
+    async clearCart (cartId) {
         try{
-            const responose = await Cart.destroy({
+            const responose = await CartProduct.destroy({
                 where:{
-                    id:id,
+                    cartId:cartId,
                 }
             })
             return responose;

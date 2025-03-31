@@ -54,6 +54,32 @@ class CartService {
         }
     }
 
+    async clearCart(cartId, userId) {
+        try{
+            // console.log(` Inside service layer cart id: ${cartId} and userId: ${userId}`)
+            const cart = await this.repository.getCart(cartId);
+            // console.log("cart value is:-", cart)
+            if(!cart){
+                throw new NotFoundError("Cart", "id", cartId);
+            }
+
+            // console.log("condition ofr user and cart:-", cart.userId !== userId)
+            if(cart.userId !== userId){
+                throw new UnauthorizedError("You are not authorized to do the current operation..")
+            }
+            const response = await this.repository.clearCart(cartId);
+
+            return response;
+        }
+        catch(error) {
+            console.log("Cart Service layer....", error);
+            if(error.name === "NotFoundError" || error.name === "UnauthorizedError"){
+                throw error;
+            }
+            throw new InternalServerError()
+        }
+    }
+
     
 
     
